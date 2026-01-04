@@ -33,6 +33,7 @@ const projects = [
   { title: "📈 Crypto Trading Strategy App", desc: "Tracks lagged correlations between coins and executes strategy-based insights.", tech: "Python, Pandas, NumPy, Plotly", github: "https://github.com/sonuupahyaya/crypto-correlation-strategy", icon: TrendingUp },
   { title: "💪 AI Fitness & Nutrition Planner", desc: "AI-powered fitness, nutrition, meal, and workout planning system with ML calorie prediction and dynamic splits.", tech: "Python, Flask, Machine Learning, HTML, CSS, Chart.js", live: "https://fitness-planner-xxj8.onrender.com/", github: "https://github.com/sonuupahyaya/fitness_planner", icon: Code },
   { title: "🏏 Bat-Ball RL Agent", desc: "Reinforcement Learning cricket simulation where an AI-controlled bat learns timing and accuracy through Q-Learning.", tech: "Python, Streamlit, NumPy, Matplotlib, RL", live: "https://bat-ballrl-frvu6awc3p9gwegjidjqzy.streamlit.app/", github: "https://github.com/sonuupahyaya/bat-ballRL", icon: Terminal },
+  { title: "📇 MERN Contact Manager", desc: "A full-stack contact management application that allows users to create, update, delete, and manage contacts with secure authentication and cloud database support.", tech: "React, Node.js, Express, MongoDB, JWT, Tailwind", live: "https://mern-contact-manager-9no3n13bq-sonuupahyayas-projects.vercel.app/", github: "https://github.com/sonuupahyaya/mern-contact-manager", icon: Terminal },
 
   
 ];
