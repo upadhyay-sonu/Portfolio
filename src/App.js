@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 // Icons using Lucide React
 import {
   Github, Linkedin, Code, Terminal, CheckCircle, GraduationCap,
-  Award, Briefcase, ChevronRight, Zap, Globe, Download, TrendingUp, Cpu
+  Award, Briefcase, ChevronRight, Zap, Globe, Download, TrendingUp, Cpu,
+  Rocket, ShoppingCart, CheckSquare, BarChart, Brain, Factory
 } from 'lucide-react';
 
 // --- Data Definitions ---
@@ -34,8 +35,13 @@ const projects = [
   { title: "💪 AI Fitness & Nutrition Planner", desc: "AI-powered fitness, nutrition, meal, and workout planning system with ML calorie prediction and dynamic splits.", tech: "Python, Flask, Machine Learning, HTML, CSS, Chart.js", live: "https://fitness-planner-xxj8.onrender.com/", github: "https://github.com/sonuupahyaya/fitness_planner", icon: Code },
   { title: "🏏 Bat-Ball RL Agent", desc: "Reinforcement Learning cricket simulation where an AI-controlled bat learns timing and accuracy through Q-Learning.", tech: "Python, Streamlit, NumPy, Matplotlib, RL", live: "https://bat-ballrl-frvu6awc3p9gwegjidjqzy.streamlit.app/", github: "https://github.com/sonuupahyaya/bat-ballRL", icon: Terminal },
   { title: "📇 MERN Contact Manager", desc: "A full-stack contact management application that allows users to create, update, delete, and manage contacts with secure authentication and cloud database support.", tech: "React, Node.js, Express, MongoDB, JWT, Tailwind", live: "https://mern-contact-manager-9no3n13bq-sonuupahyayas-projects.vercel.app/", github: "https://github.com/sonuupahyaya/mern-contact-manager", icon: Terminal },
+  { title: "🚀 StartupVault", desc: "A startup deals and discovery platform where users can explore, manage, and track startup deals with a clean UI and full-stack functionality.", tech: "React, Next.js, Node.js, MongoDB, Tailwind", live: "https://startup-vault-five.vercel.app/deals", github: "https://github.com/upadhyay-sonu/StartupVault", icon: Rocket },
+  { title: "🛒 Mini Grocery Store", desc: "A simple grocery store application that allows users to browse products, add items to cart, and simulate an online shopping experience.", tech: "HTML, CSS, JavaScript", live: "", github: "https://github.com/upadhyay-sonu/Mini-grocery-store", icon: ShoppingCart },
+  { title: "✅ Task Manager", desc: "A task management application to create, update, delete, and track daily tasks with an intuitive and minimal interface.", tech: "React, JavaScript, CSS", live: "", github: "https://github.com/upadhyay-sonu/Task-Manager", icon: CheckSquare },
+  { title: "📊 Data Explorer", desc: "A data exploration tool that helps visualize, filter, and analyze datasets interactively for better insights and understanding.", tech: "Python, Pandas, Data Visualization", live: "", github: "https://github.com/upadhyay-sonu/data-explorer", icon: BarChart },
+  { title: "🧠 Super Vision AI", desc: "An AI-powered computer vision project focused on image analysis and intelligent visual recognition using deep learning models.", tech: "Python, OpenCV, Deep Learning", live: "", github: "https://github.com/upadhyay-sonu/super-vision-ai", icon: Brain },
+  { title: "🏭 Shopfloor Lite", desc: "A lightweight shopfloor management system designed to track operations, workflows, and basic production data efficiently.", tech: "React, JavaScript, CSS", live: "", github: "https://github.com/upadhyay-sonu/shopfloor-lite", icon: Factory }, 
 
-  
 ];
 
 
