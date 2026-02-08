@@ -403,14 +403,14 @@ const App = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
-                 <Cpu className='w-6 h-6 mr-3 text-cyan-400'/> AI, ML & Full-Stack Development //
+                 <Cpu className='w-6 h-6 mr-3 text-cyan-400'/> AI, ML & Full-Stack Developer
               </motion.p>
             </div>
 
             {/* Social Icons & CTA */}
             <div className="flex flex-col items-center gap-8 mt-10">
               <div className="flex gap-8">
-                <motion.a whileHover={{ scale: 1.5, color: '#06b6d4' }} href="https://github.com/sonuupahyaya" target="_blank" rel="noopener noreferrer" className="text-gray-500 transition duration-300">
+                <motion.a whileHover={{ scale: 1.5, color: '#06b6d4' }} href="https://github.com/upadhyay-sonu" target="_blank" rel="noopener noreferrer" className="text-gray-500 transition duration-300">
                   <Github className="w-8 h-8" />
                 </motion.a>
                 <motion.a whileHover={{ scale: 1.5, color: '#ec4899' }} href="https://www.linkedin.com/in/sonukumar102/" target="_blank" rel="noopener noreferrer" className="text-gray-500 transition duration-300">
