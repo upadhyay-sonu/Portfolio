@@ -1,12 +1,17 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import './global.css';
 
 // Icons using Lucide React
 import {
   Github, Linkedin, Code, Terminal, CheckCircle, GraduationCap,
   Award, Briefcase, ChevronRight, Zap, Globe, Download, TrendingUp, Cpu,
-  Rocket, ShoppingCart, CheckSquare, BarChart, Brain, Factory
+  Rocket, ShoppingCart, CheckSquare, BarChart, Brain, Factory, Mail, FileText
 } from 'lucide-react';
+
+// Navigation Components
+import FloatingNavBox from './FloatingNavBox';
+import SplitNavigation from './SplitNavigation';
 
 // --- Data Definitions ---
 
@@ -21,26 +26,26 @@ const hardSkills = [
 
 const projects = [
  
-   { title: "💼 Data Science Salary Predictor", desc: "Predicts DS salaries using XGBoost model. Input job details, get instant salary estimates.", tech: "Python, Pandas, XGBoost, Streamlit", live: "https://salary-predictor-vykduych8bxqrq8t69szrm.streamlit.app/", github: "https://github.com/sonuupahyaya/Salary-Predictor", icon: Briefcase },
-  { title: "📊 Demand Forecasting Web App", desc: "Forecasts demand with Prophet/ARIMA & interactive dashboards for inventory optimization.", tech: "Streamlit, Prophet, ARIMA, Pandas", live: "https://demandforecastproject-thqparu4ibghczx4ooxpmc.streamlit.app/", github: "https://github.com/sonuupahyaya/demand_forecast_project", icon: TrendingUp },
-  { title: "🚢 Titanic Survival Predictor", desc: "Predicts passenger survival using Logistic Regression with Streamlit interface.", tech: "Python, Scikit-learn, Streamlit", live: "https://titanic-survival-predictor-l6szzooityaqk5jdyqn9pt.streamlit.app/", github: "https://github.com/sonuupahyaya/titanic-survival-predictor", icon: Terminal },
-  { title: "🍽️ Restaurant Management System", desc: "Django-based restaurant management app with menu, booking, and order tracking.", tech: "Django, Python, SQLite", github: "https://github.com/sonuupahyaya/restaurant_management_project", icon: Code },
-  { title: "💳 Credit Card Fraud Detection", desc: "ML model for detecting fraudulent transactions with SMOTE and classifiers.", tech: "Python, Pandas, Scikit-learn", github: "https://github.com/sonuupahyaya/Credit-Card-Fraud-Detection-Model", icon: Award },
-  { title: "⚖️ Legal Aid App", desc: "A web platform to connect users with lawyers and get AI-based legal suggestions.", tech: "React, Django, REST API, CSS", live: "https://legal-aid-app-three.vercel.app/", github: "https://github.com/sonuupahyaya/legal-aid-app", icon: Code },
-  { title: "📝 Note App Project", desc: "Full-stack note management web app for creating, updating, and deleting notes.", tech: "Flask, HTML, CSS, SQLite", live: "https://note-app-project-1.onrender.com/", github: "https://github.com/sonuupahyaya/note_app_project", icon: Code },
-  { title: "🛍️ Gatsby E-commerce Theme", desc: "A sleek, fast, and customizable e-commerce template built with Gatsby and GraphQL.", tech: "Gatsby, React, GraphQL, CSS", live: "https://frabjous-rolypoly-228243.netlify.app/", github: "https://github.com/sonuupahyaya/gatsby-ecommerce-theme", icon: Code },
-  { title: "💡 JobQuest – Smart Job Finder", desc: "A React-based platform that fetches live job data via REST API for smart job searching.", tech: "React, REST API, Vite", live: "https://sprightly-gumdrop-f69acc.netlify.app/", github: "https://github.com/sonuupahyaya/jobquest-smart-job-finder", icon: Briefcase },
-  { title: "🔐 SecureVault Password Manager", desc: "Password Manager with encryption, CRUD, and hashing using Flask and Cryptography.", tech: "Flask, SQLite, Cryptography, Bcrypt", github: "https://github.com/sonuupahyaya/SecureVault", icon: Code },
-  { title: "📈 Crypto Trading Strategy App", desc: "Tracks lagged correlations between coins and executes strategy-based insights.", tech: "Python, Pandas, NumPy, Plotly", github: "https://github.com/sonuupahyaya/crypto-correlation-strategy", icon: TrendingUp },
-  { title: "💪 AI Fitness & Nutrition Planner", desc: "AI-powered fitness, nutrition, meal, and workout planning system with ML calorie prediction and dynamic splits.", tech: "Python, Flask, Machine Learning, HTML, CSS, Chart.js", live: "https://fitness-planner-xxj8.onrender.com/", github: "https://github.com/sonuupahyaya/fitness_planner", icon: Code },
-  { title: "🏏 Bat-Ball RL Agent", desc: "Reinforcement Learning cricket simulation where an AI-controlled bat learns timing and accuracy through Q-Learning.", tech: "Python, Streamlit, NumPy, Matplotlib, RL", live: "https://bat-ballrl-frvu6awc3p9gwegjidjqzy.streamlit.app/", github: "https://github.com/sonuupahyaya/bat-ballRL", icon: Terminal },
-  { title: "📇 MERN Contact Manager", desc: "A full-stack contact management application that allows users to create, update, delete, and manage contacts with secure authentication and cloud database support.", tech: "React, Node.js, Express, MongoDB, JWT, Tailwind", live: "https://mern-contact-manager-9no3n13bq-sonuupahyayas-projects.vercel.app/", github: "https://github.com/sonuupahyaya/mern-contact-manager", icon: Terminal },
-  { title: "🚀 StartupVault", desc: "A startup deals and discovery platform where users can explore, manage, and track startup deals with a clean UI and full-stack functionality.", tech: "React, Next.js, Node.js, MongoDB, Tailwind", live: "https://startup-vault-five.vercel.app/deals", github: "https://github.com/upadhyay-sonu/StartupVault", icon: Rocket },
-  { title: "🛒 Mini Grocery Store", desc: "A simple grocery store application that allows users to browse products, add items to cart, and simulate an online shopping experience.", tech: "HTML, CSS, JavaScript", live: "", github: "https://github.com/upadhyay-sonu/Mini-grocery-store", icon: ShoppingCart },
-  { title: "✅ Task Manager", desc: "A task management application to create, update, delete, and track daily tasks with an intuitive and minimal interface.", tech: "React, JavaScript, CSS", live: "", github: "https://github.com/upadhyay-sonu/Task-Manager", icon: CheckSquare },
-  { title: "📊 Data Explorer", desc: "A data exploration tool that helps visualize, filter, and analyze datasets interactively for better insights and understanding.", tech: "Python, Pandas, Data Visualization", live: "", github: "https://github.com/upadhyay-sonu/data-explorer", icon: BarChart },
-  { title: "🧠 Super Vision AI", desc: "An AI-powered computer vision project focused on image analysis and intelligent visual recognition using deep learning models.", tech: "Python, OpenCV, Deep Learning", live: "", github: "https://github.com/upadhyay-sonu/super-vision-ai", icon: Brain },
-  { title: "🏭 Shopfloor Lite", desc: "A lightweight shopfloor management system designed to track operations, workflows, and basic production data efficiently.", tech: "React, JavaScript, CSS", live: "", github: "https://github.com/upadhyay-sonu/shopfloor-lite", icon: Factory }, 
+   { title: "Data Science Salary Predictor", desc: "Predicts DS salaries using XGBoost model. Input job details, get instant salary estimates.", tech: "Python, Pandas, XGBoost, Streamlit", live: "https://salary-predictor-vykduych8bxqrq8t69szrm.streamlit.app/", github: "https://github.com/sonuupahyaya/Salary-Predictor", icon: Briefcase },
+   { title: "Demand Forecasting Web App", desc: "Forecasts demand with Prophet/ARIMA & interactive dashboards for inventory optimization.", tech: "Streamlit, Prophet, ARIMA, Pandas", live: "https://demandforecastproject-thqparu4ibghczx4ooxpmc.streamlit.app/", github: "https://github.com/sonuupahyaya/demand_forecast_project", icon: TrendingUp },
+   { title: "Titanic Survival Predictor", desc: "Predicts passenger survival using Logistic Regression with Streamlit interface.", tech: "Python, Scikit-learn, Streamlit", live: "https://titanic-survival-predictor-l6szzooityaqk5jdyqn9pt.streamlit.app/", github: "https://github.com/sonuupahyaya/titanic-survival-predictor", icon: Terminal },
+   { title: "Restaurant Management System", desc: "Django-based restaurant management app with menu, booking, and order tracking.", tech: "Django, Python, SQLite", github: "https://github.com/sonuupahyaya/restaurant_management_project", icon: Code },
+   { title: "Credit Card Fraud Detection", desc: "ML model for detecting fraudulent transactions with SMOTE and classifiers.", tech: "Python, Pandas, Scikit-learn", github: "https://github.com/sonuupahyaya/Credit-Card-Fraud-Detection-Model", icon: Award },
+   { title: "Legal Aid App", desc: "A web platform to connect users with lawyers and get AI-based legal suggestions.", tech: "React, Django, REST API, CSS", live: "https://legal-aid-app-three.vercel.app/", github: "https://github.com/sonuupahyaya/legal-aid-app", icon: Code },
+   { title: "Note App Project", desc: "Full-stack note management web app for creating, updating, and deleting notes.", tech: "Flask, HTML, CSS, SQLite", live: "https://note-app-project-1.onrender.com/", github: "https://github.com/sonuupahyaya/note_app_project", icon: Code },
+   { title: "Gatsby E-commerce Theme", desc: "A sleek, fast, and customizable e-commerce template built with Gatsby and GraphQL.", tech: "Gatsby, React, GraphQL, CSS", live: "https://frabjous-rolypoly-228243.netlify.app/", github: "https://github.com/sonuupahyaya/gatsby-ecommerce-theme", icon: Code },
+   { title: "JobQuest – Smart Job Finder", desc: "A React-based platform that fetches live job data via REST API for smart job searching.", tech: "React, REST API, Vite", live: "https://sprightly-gumdrop-f69acc.netlify.app/", github: "https://github.com/sonuupahyaya/jobquest-smart-job-finder", icon: Briefcase },
+   { title: "SecureVault Password Manager", desc: "Password Manager with encryption, CRUD, and hashing using Flask and Cryptography.", tech: "Flask, SQLite, Cryptography, Bcrypt", github: "https://github.com/sonuupahyaya/SecureVault", icon: Code },
+   { title: "Crypto Trading Strategy App", desc: "Tracks lagged correlations between coins and executes strategy-based insights.", tech: "Python, Pandas, NumPy, Plotly", github: "https://github.com/sonuupahyaya/crypto-correlation-strategy", icon: TrendingUp },
+   { title: "AI Fitness & Nutrition Planner", desc: "AI-powered fitness, nutrition, meal, and workout planning system with ML calorie prediction and dynamic splits.", tech: "Python, Flask, Machine Learning, HTML, CSS, Chart.js", live: "https://fitness-planner-xxj8.onrender.com/", github: "https://github.com/sonuupahyaya/fitness_planner", icon: Code },
+   { title: "Bat-Ball RL Agent", desc: "Reinforcement Learning cricket simulation where an AI-controlled bat learns timing and accuracy through Q-Learning.", tech: "Python, Streamlit, NumPy, Matplotlib, RL", live: "https://bat-ballrl-frvu6awc3p9gwegjidjqzy.streamlit.app/", github: "https://github.com/sonuupahyaya/bat-ballRL", icon: Terminal },
+   { title: "MERN Contact Manager", desc: "A full-stack contact management application that allows users to create, update, delete, and manage contacts with secure authentication and cloud database support.", tech: "React, Node.js, Express, MongoDB, JWT, Tailwind", live: "https://mern-contact-manager-9no3n13bq-sonuupahyayas-projects.vercel.app/", github: "https://github.com/sonuupahyaya/mern-contact-manager", icon: Terminal },
+   { title: "StartupVault", desc: "A startup deals and discovery platform where users can explore, manage, and track startup deals with a clean UI and full-stack functionality.", tech: "React, Next.js, Node.js, MongoDB, Tailwind", live: "https://startup-vault-five.vercel.app/deals", github: "https://github.com/upadhyay-sonu/StartupVault", icon: Rocket },
+   { title: "Mini Grocery Store", desc: "A simple grocery store application that allows users to browse products, add items to cart, and simulate an online shopping experience.", tech: "HTML, CSS, JavaScript", live: "", github: "https://github.com/upadhyay-sonu/Mini-grocery-store", icon: ShoppingCart },
+   { title: "Task Manager", desc: "A task management application to create, update, delete, and track daily tasks with an intuitive and minimal interface.", tech: "React, JavaScript, CSS", live: "", github: "https://github.com/upadhyay-sonu/Task-Manager", icon: CheckSquare },
+   { title: "Data Explorer", desc: "A data exploration tool that helps visualize, filter, and analyze datasets interactively for better insights and understanding.", tech: "Python, Pandas, Data Visualization", live: "", github: "https://github.com/upadhyay-sonu/data-explorer", icon: BarChart },
+   { title: "Super Vision AI", desc: "An AI-powered computer vision project focused on image analysis and intelligent visual recognition using deep learning models.", tech: "Python, OpenCV, Deep Learning", live: "", github: "https://github.com/upadhyay-sonu/super-vision-ai", icon: Brain },
+   { title: "Shopfloor Lite", desc: "A lightweight shopfloor management system designed to track operations, workflows, and basic production data efficiently.", tech: "React, JavaScript, CSS", live: "", github: "https://github.com/upadhyay-sonu/shopfloor-lite", icon: Factory },
 
 ];
 
@@ -184,26 +189,26 @@ const ProjectCard = ({ proj, i }) => {
         <p className="text-magenta-400 font-medium text-xs rounded-full inline-block p-1 px-3 bg-gray-800/80 border border-magenta-500/30">Tech: {proj.tech}</p>
       </div>
 
-      <div className="flex gap-4 mt-6">
-        {proj.live && (
+      <div className="flex gap-4 mt-6 flex-wrap">
+          {proj.live && (
+            <a
+              href={proj.live}
+              target="_blank"
+              rel="noreferrer"
+              className="px-5 py-2 text-sm font-bold rounded-full text-white btn-live-glow transition"
+            >
+              <Globe className="w-4 h-4 inline mr-1" /> View Live
+            </a>
+          )}
           <a
-            href={proj.live}
+            href={proj.github}
             target="_blank"
             rel="noreferrer"
-            className="px-5 py-2 text-sm font-bold rounded-full text-white btn-live-glow transition"
+            className="px-5 py-2 text-sm font-bold rounded-full border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white transition"
           >
-            <Globe className="w-4 h-4 inline mr-1" /> View Live
+            <Github className="w-4 h-4 inline mr-1" /> Codebase
           </a>
-        )}
-        <a
-          href={proj.github}
-          target="_blank"
-          rel="noreferrer"
-          className="px-5 py-2 text-sm font-bold rounded-full border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white transition"
-        >
-          <Github className="w-4 h-4 inline mr-1" /> Codebase
-        </a>
-      </div>
+        </div>
     </motion.div>
   );
 };
@@ -239,138 +244,68 @@ const App = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-gray-100 font-inter main-grid-background relative overflow-x-hidden">
-      
-      {/* 🌠 ADD THE TWINKLING STAR BACKGROUND HERE 🌠 */}
-      <StarsBackground numStars={250} />
+     <div className="min-h-full bg-black text-gray-100 font-inter main-grid-background relative overflow-x-hidden">
+       
+       {/* 🌠 FLOATING 3D NAVIGATION BOXES 🌠 */}
+       <FloatingNavBox 
+         label="Projects" 
+         icon={Rocket}
+         action="#projects"
+         baseX={60}
+         baseY={30}
+         animationPhase={0}
+         color="cyan"
+       />
+       <FloatingNavBox 
+         label="Skills" 
+         icon={Zap}
+         action="#skills"
+         baseX={220}
+         baseY={40}
+         animationPhase={1.5}
+         color="purple"
+       />
+       <FloatingNavBox 
+         label="Education" 
+         icon={GraduationCap}
+         action="#education"
+         baseX={380}
+         baseY={35}
+         animationPhase={3}
+         color="green"
+       />
+       <FloatingNavBox 
+         label="CV" 
+         icon={FileText}
+         action="https://drive.google.com/file/d/1kiMoKhL7t9U-j6wgYVJSn6-1MyqxJM3X/view?usp=sharing"
+         baseX={540}
+         baseY={45}
+         animationPhase={4.5}
+         color="blue"
+       />
+       <FloatingNavBox 
+         label="Connect" 
+         icon={Mail}
+         action="https://www.linkedin.com/in/sonukumar102/"
+         baseX={700}
+         baseY={38}
+         animationPhase={6}
+         color="pink"
+       />
+       
+       {/* 🌠 TWINKLING STAR BACKGROUND 🌠 */}
+       <StarsBackground numStars={250} />
 
-      {/* GLOBAL STYLES (CRITICAL FOR VISUAL EFFECTS) */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-          
-        .font-inter { font-family: 'Inter', sans-serif; }
+      {/* Split 3D Floating Navigation Items */}
+      <SplitNavigation />
 
-        /* Animated Grid Background */
-        .main-grid-background {
-          background-color: #000000;
-          background-image: linear-gradient(to right, rgba(50, 50, 50, 0.06) 1px, transparent 1px),
-                            linear-gradient(to bottom, rgba(50, 50, 50, 0.06) 1px, transparent 1px);
-          background-size: 50px 50px;
-          animation: background-pan 90s linear infinite;
-          background-blend-mode: overlay;
-        }
-        @keyframes background-pan {
-          from { background-position: 0% 0%; }
-          to { background-position: 500px 500px; }
-        }
-
-        /* 🌠 TWINKLE ANIMATION FOR STARS 🌠 */
-        @keyframes twinkle {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 0.5; }
-        }
-        .star-twinkle {
-            opacity: 0.5;
-            transition: all 0.3s ease;
-            animation-name: twinkle;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
-
-
-        /* Hero Section Gradient - Atmospheric Glow */
-        .hero-section {
-          background-image: radial-gradient(at 10% 80%, rgba(30, 27, 75, 0.4) 0%, transparent 60%),
-                            radial-gradient(at 90% 20%, rgba(76, 29, 149, 0.3) 0%, transparent 60%),
-                            linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0));
-          min-height: 100vh;
-        }
-
-        /* Neon/Holographic Text Glow */
-        .neon-glow-heading {
-          text-shadow: 0 0 10px rgba(52, 211, 255, 0.8), 0 0 35px rgba(236, 72, 153, 0.5);
-          animation: glitch-text 4s infinite linear alternate;
-        }
-        
-        /* Subtle Glitch Text Effect */
-        @keyframes glitch-text {
-          0%, 100% { clip-path: inset(0 0 0 0); }
-          20% { clip-path: inset(3% 0 3% 0); }
-          40% { clip-path: inset(1% 0 1% 0); }
-          60% { clip-path: inset(5% 0 5% 0); }
-          80% { clip-path: inset(0.5% 0 0.5% 0); }
-        }
-
-        /* Profile Image - Holographic Ring */
-        .profile-image {
-          width: 180px;
-          height: 180px;
-          border-radius: 50%;
-          object-fit: cover;
-          border: 4px solid #06b6d4; /* Cyan-500 */
-          box-shadow: 0 0 30px rgba(6, 182, 212, 1), inset 0 0 15px rgba(236, 72, 153, 0.5);
-          transition: all 0.5s ease;
-        }
-        .profile-image:hover {
-            box-shadow: 0 0 50px rgba(236, 72, 153, 1), inset 0 0 15px rgba(6, 182, 212, 0.5); 
-            transform: scale(1.05);
-        }
-
-        /* Project Card Styling - Frosted Glass Effect */
-        .project-card {
-          background: rgba(17, 24, 39, 0.8); /* Darker, slightly transparent */
-          backdrop-filter: blur(10px); /* Frosted glass */
-          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        /* Live Demo Button Glow */
-        .btn-live-glow {
-          background: linear-gradient(90deg, #06b6d4, #ec4899); /* Cyan to Pink */
-          box-shadow: 0 4px 20px rgba(6, 182, 212, 0.6);
-          transition: all 0.3s ease;
-        }
-        .btn-live-glow:hover {
-          box-shadow: 0 0 30px #ec4899, 0 0 20px #06b6d4;
-          transform: translateY(-4px);
-        }
-
-        /* Contact Button Glowing Border (Conic Gradient) */
-        .btn-contact {
-            background-color: #000000;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        .btn-contact::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(transparent 0deg, transparent 180deg, #06b6d4 180deg, #ec4899 360deg);
-            z-index: -1;
-            animation: rotate 4s linear infinite;
-        }
-        @keyframes rotate { to { transform: rotate(1turn); } }
-        .btn-contact:hover::before { animation: rotate 1s linear infinite; }
-        .btn-contact::after {
-            content: '';
-            position: absolute;
-            inset: 3px;
-            background-color: #000000;
-            border-radius: 0.75rem; /* rounded-xl */
-            z-index: -1;
-        }
-      `}</style>
-
-      {/* MAIN CONTENT WRAPPER FOR 3D MOUSE TILT */}
-      <div 
-        className="transform-gpu will-change-transform relative z-10" // Added z-10 here
-        style={{
-            transform: `perspective(1500px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-            transition: 'transform 0.5s ease-out',
-        }}
-      >
+      {/* MAIN CONTENT WRAPPER */}
+       <div 
+         className="relative w-full z-0"
+         style={{
+             transition: 'transform 0.5s ease-out',
+         }}
+       >
 
         {/* HEADER: HERO SECTION */}
         <header className="hero-section flex flex-col items-center justify-center pt-32 pb-20 px-4 relative z-10">
@@ -438,134 +373,164 @@ const App = () => {
           </div>
         </header>
 
-        {/* --- ABOUT & 3D SKILLS SECTION --- */}
-        <section className="relative py-20 lg:py-32 bg-black border-t border-gray-900">
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* --- SKILLS SECTION --- */}
+         <section id="skills" className="relative py-20 lg:py-32 bg-black border-t border-gray-900">
+           <div className="max-w-7xl mx-auto px-6 relative z-10">
 
-            <motion.h2
-              className="text-5xl font-black text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-magenta-400"
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              // SKILL MATRIX & CREDENTIALS
-            </motion.h2>
+             <motion.h2
+               className="text-5xl font-black text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-magenta-400"
+               initial={{ opacity: 0, y: -20 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.5 }}
+             >
+               // SKILL MATRIX & CREDENTIALS
+             </motion.h2>
 
-            <div className="grid lg:grid-cols-12 gap-10">
+             <div className="grid lg:grid-cols-12 gap-10">
 
-              {/* Left Column: Skills Display - Perspective parent container */}
-              <motion.div
-                className="lg:col-span-7 p-8 rounded-3xl project-card border border-cyan-500/20"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ perspective: 1200 }} // Enable strong 3D transform on children
-              >
-                <h3 className="text-3xl font-bold mb-8 text-cyan-400 flex items-center">
-                  <Code className="w-6 h-6 mr-3" /> Core Technical Proficiencies 
-                </h3>
-                {hardSkills.map((skill, index) => (
-                  <SkillBar3D key={skill.name} skill={skill} delay={index * 0.1} />
-                ))}
-              </motion.div>
+               {/* Left Column: Skills Display - Perspective parent container */}
+               <motion.div
+                 className="lg:col-span-7 p-8 rounded-3xl project-card border border-cyan-500/20"
+                 initial={{ opacity: 0, x: -50 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 viewport={{ once: true, amount: 0.3 }}
+                 transition={{ duration: 0.8, delay: 0.2 }}
+                 style={{ perspective: 1200 }} // Enable strong 3D transform on children
+               >
+                 <h3 className="text-3xl font-bold mb-8 text-cyan-400 flex items-center">
+                   <Code className="w-6 h-6 mr-3" /> Core Technical Proficiencies 
+                 </h3>
+                 {hardSkills.map((skill, index) => (
+                   <SkillBar3D key={skill.name} skill={skill} delay={index * 0.1} />
+                 ))}
+               </motion.div>
 
-              {/* Right Column: Credentials/Certs */}
-              <motion.div
-                className="lg:col-span-5 p-8 rounded-3xl project-card border border-magenta-500/20"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <h3 className="text-3xl font-bold mb-8 text-magenta-400 flex items-center">
-                  <GraduationCap className="w-6 h-6 mr-3" /> Trajectory & Degrees
-                </h3>
-                
-                <ul className="space-y-4 mb-8 border-l-4 border-gray-700 pl-4">
-                  <li className="text-lg text-gray-200">
-                    <span className="font-bold text-white">MCA, Lovely Professional University</span>
-                    <p className="text-sm text-gray-400">Master of Computer Applications</p>
-                  </li>
-                  <li className="text-lg text-gray-200">
-                    <span className="font-bold text-white">BCA, Lovely Professional University</span>
-                    <p className="text-sm text-gray-400">Bachelor of Computer Applications</p>
-                  </li>
-                </ul>
-                
-                <h3 className="text-2xl font-bold mb-4 text-cyan-400 flex items-center mt-8">
-                  <Award className="w-5 h-5 mr-3" /> Certifications
-                </h3>
-                <div className="flex flex-wrap gap-3 ml-4">
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Python (GFG)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Java (GFG)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Django (BI)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> UI/UX Design Fundamentals (Google)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> React.js (Coursera)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Angular.js (Udemy)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> ionic (Skillshare)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> node.js (Google UX)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> react native (Coursera)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Vue.js (LinkedIn)
-  </span>
-  <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Next.js (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Bootstrap (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Tailwind CSS (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Render (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> vercel (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> GitHub (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> Scikit-learn (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> XGBoost (Coursera)
-  </span>
-   <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
-    <CheckCircle className="w-3 h-3 mr-1" /> LightGBM (Coursera)
-  </span>
-</div>
-
-              </motion.div>
+               {/* Right Column: Brief Info */}
+               <motion.div
+                 className="lg:col-span-5 p-8 rounded-3xl project-card border border-magenta-500/20"
+                 initial={{ opacity: 0, x: 50 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 viewport={{ once: true, amount: 0.3 }}
+                 transition={{ duration: 0.8, delay: 0.4 }}
+               >
+                 <h3 className="text-3xl font-bold mb-8 text-magenta-400 flex items-center">
+                   <Briefcase className="w-6 h-6 mr-3" /> Professional Summary
+                 </h3>
+                 <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                   Full-stack developer with expertise in Python, React, and Machine Learning. Passionate about building innovative solutions and scalable applications.
+                 </p>
+                 <div className="flex gap-4">
+                   <motion.a
+                     href="#education"
+                     className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg transition"
+                     whileHover={{ scale: 1.05 }}
+                   >
+                     View Education →
+                   </motion.a>
+                 </div>
+               </motion.div>
             </div>
           </div>
         </section>
-        {/* --- END ABOUT & 3D SKILLS SECTION --- */}
 
+        {/* --- EDUCATION SECTION --- */}
+        <section id="education" className="relative py-20 lg:py-32 bg-black border-t border-gray-900">
+         <div className="max-w-7xl mx-auto px-6 relative z-10">
+           <motion.div
+             className="lg:max-w-2xl mx-auto p-8 rounded-3xl project-card border border-magenta-500/20"
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true, amount: 0.3 }}
+             transition={{ duration: 0.8 }}
+           >
+             <h2 className="text-5xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-magenta-400 to-cyan-400">
+               EDUCATION
+             </h2>
+             
+             <h3 className="text-3xl font-bold mb-8 text-magenta-400 flex items-center">
+               <GraduationCap className="w-6 h-6 mr-3" /> Trajectory & Degrees
+             </h3>
+             
+             <ul className="space-y-4 mb-8 border-l-4 border-gray-700 pl-4">
+               <li className="text-lg text-gray-200">
+                 <span className="font-bold text-white">MCA, Lovely Professional University</span>
+                 <p className="text-sm text-gray-400">Master of Computer Applications</p>
+               </li>
+               <li className="text-lg text-gray-200">
+                 <span className="font-bold text-white">BCA, Lovely Professional University</span>
+                 <p className="text-sm text-gray-400">Bachelor of Computer Applications</p>
+               </li>
+             </ul>
+             
+             <h3 className="text-2xl font-bold mb-4 text-cyan-400 flex items-center mt-8">
+               <Award className="w-5 h-5 mr-3" /> Certifications
+             </h3>
+             <div className="flex flex-wrap gap-3 ml-4">
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Python (GFG)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Java (GFG)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Django (BI)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> UI/UX Design Fundamentals (Google)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> React.js (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Angular.js (Udemy)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> ionic (Skillshare)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> node.js (Google UX)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> react native (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Vue.js (LinkedIn)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Next.js (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Bootstrap (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Tailwind CSS (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Render (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> vercel (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> GitHub (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> Scikit-learn (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> XGBoost (Coursera)
+               </span>
+               <span className="px-3 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full flex items-center">
+                 <CheckCircle className="w-3 h-3 mr-1" /> LightGBM (Coursera)
+               </span>
+             </div>
+           </motion.div>
+         </div>
+        </section>
 
         {/* PROJECTS */}
-        <section className="py-20 bg-black border-t border-gray-900">
+        <section id="projects" className="py-20 bg-black border-t border-gray-900">
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="text-5xl font-black text-white mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-magenta-400 to-cyan-400">
               PROJECTS
@@ -578,8 +543,55 @@ const App = () => {
           </div>
         </section>
 
+        {/* CONNECT SECTION */}
+        <section id="connect" className="relative py-20 text-center bg-black border-t border-gray-900">
+          <div className="max-w-4xl mx-auto px-6">
+            <h3 className="text-4xl font-extrabold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-magenta-400 bg-clip-text text-transparent">
+              LET'S CONNECT
+            </h3>
+
+            <p className="text-gray-400 mb-10 text-lg max-w-2xl mx-auto">
+              Let's collaborate and create something amazing together. Find me on LinkedIn or reach out via email.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <motion.a
+                href="https://www.linkedin.com/in/sonukumar102/"
+                target="_blank"
+                rel="noreferrer"
+                className="relative px-8 py-3 rounded-xl font-bold text-lg text-white transition-all duration-300
+                  bg-gradient-to-r from-blue-600 to-cyan-600 shadow-xl shadow-blue-900/40
+                  hover:shadow-blue-500/60 hover:scale-[1.05] flex items-center justify-center"
+                whileHover={{ scale: 1.05, y: -4 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <Linkedin className="w-5 h-5 mr-3" />
+                <span>Connect on LinkedIn</span>
+              </motion.a>
+
+              <motion.a
+                href="mailto:upadhyayasonu41@gmail.com"
+                className="relative px-8 py-3 rounded-xl font-bold text-lg text-white transition-all duration-300
+                  bg-gradient-to-r from-magenta-600 to-pink-600 shadow-xl shadow-magenta-900/40
+                  hover:shadow-magenta-500/60 hover:scale-[1.05] flex items-center justify-center"
+                whileHover={{ scale: 1.05, y: -4 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <Mail className="w-5 h-5 mr-3" />
+                <span>Send Email</span>
+              </motion.a>
+            </div>
+          </div>
+        </section>
+
         {/* CV SECTION */}
-        <section className="relative py-20 text-center bg-black border-t border-gray-900">
+        <section id="cv" className="relative py-20 text-center bg-black border-t border-gray-900">
           <div className="max-w-4xl mx-auto px-6">
             <h3 className="text-4xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-magenta-400 bg-clip-text text-transparent">
               [ACCESS_FILE] Download CV
