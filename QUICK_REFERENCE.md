@@ -1,302 +1,353 @@
-# 3D Floating Navigation - Quick Reference Guide
+# Animation System - Quick Reference
 
-## The System in 30 Seconds
+## One-Liner Examples
 
-All 5 nav items use **one unified component** that provides:
-
-1. **Floating Motion**: Continuous random movement within screen boundaries
-2. **Click Behavior**: 600ms rotation → automatic navigation → resume motion
-3. **Hover Effects**: Stop motion, show 3D rotation, enhance glow
-4. **Same Experience**: All items behave identically
-
----
-
-## Key Numbers
-
-| Metric | Value |
-|--------|-------|
-| Float Speed | 0.0002 |
-| Click Duration | 600ms |
-| Scale on Click | 1.15x |
-| Glow Intensity (Normal) | 40% |
-| Glow Intensity (Clicking) | 60% |
-| Screen Margin | 150px |
-| Movement Boundary | ±200px X, ±150px Y |
-| Wave Amplitude | 6-8px |
-| Target Cycle | Every ~5 seconds |
-
----
-
-## Animation States
-
-```
-FLOATING (Default)
-├─ Continuous random motion
-├─ Wave motion overlay
-├─ Subtle glow
-└─ Ready to interact
-
-HOVERING
-├─ Motion stopped (speedDamping=0)
-├─ 3D rotation animation
-├─ Enhanced glow
-└─ Icon pulsing
-
-CLICKING (600ms)
-├─ 360° rotateY
-├─ 216° rotateZ (0.6x)
-├─ Scale 1.15
-├─ Glow 60%
-└─ Then navigate
-
-NAVIGATING
-├─ Scroll to section OR
-├─ Open LinkedIn
-└─ Then resume
-
-BACK TO FLOATING
-└─ speedDamping=1
-```
-
----
-
-## Per-Item Navigation Targets
-
-| Item | Target | Type |
-|------|--------|------|
-| **Projects** | `#projects` | Scroll |
-| **Skills** | `#skills` | Scroll |
-| **Education** | `#education` | Scroll |
-| **CV** | `#cv` | Scroll |
-| **Connect** | LinkedIn URL | New Tab |
-
----
-
-## Component Structure
-
-```
-SplitNavigation (main)
-├─ navItems array (config for all 5)
-└─ FloatingNavItem component (used 5x)
-    ├─ Floating animation
-    ├─ Click animation
-    ├─ Hover effects
-    ├─ Navigation dispatch
-    └─ 3D rendering
-```
-
----
-
-## Code Locations (SplitNavigation.js)
-
-| Feature | Lines |
-|---------|-------|
-| Floating animation | 45-113 |
-| Click animation | 447-514 |
-| Hover effects | 250-340 |
-| Navigation config | 754-810 |
-| Component rendering | 812-831 |
-
----
-
-## State Variables (Per Item)
-
-### Animation State
-- `position`: Current {x, y, z}
-- `clickRotation`: 0-360° progress
-- `speedDamping`: 1 (moving) or 0 (stopped)
-
-### Visual State
-- `scale`: Current scale (1.0 normal, 1.15 on click)
-- `hoverRotation`: {x, y} for 3D on hover
-- `isHovering`: Boolean for hover state
-- `isClicking`: Boolean for click animation
-
-### Glow/Effect State
-- `hoveredGlowIntensity`: 0-1 scale
-- `iconPulse`: 0-1 for breathing effect
-- `iconHoverGlow`: Intensity of icon glow
-
----
-
-## Behavior Rules
-
-### Motion
-- ✅ Floats continuously (never stops on its own)
-- ✅ Stops on hover (speedDamping = 0)
-- ✅ Stops on click (speedDamping = 0)
-- ✅ Resumes after navigation (speedDamping = 1)
-
-### Speed
-- ✅ Float speed: Always 0.0002
-- ✅ Click duration: Always 600ms
-- ✅ Never increases speed
-- ✅ Never makes animations faster
-
-### Boundaries
-- ✅ Stays within screen bounds
-- ✅ 150px margin from edges
-- ✅ Adapts to window resize
-- ✅ Smooth clamping (no bouncing)
-
-### Consistency
-- ✅ All 5 items use same component
-- ✅ Same animation logic
-- ✅ Same timing
-- ✅ Same behavior patterns
-
----
-
-## Testing Quick Checklist
-
-### Floating (Observe for 10 seconds)
-- [ ] Each item moves smoothly
-- [ ] No sudden jumps
-- [ ] All stay in bounds
-- [ ] Different movement patterns
-- [ ] Never freeze
-
-### Hovering (Hover over each item)
-- [ ] Motion stops immediately
-- [ ] 3D rotation visible
-- [ ] Glow increases
-- [ ] Icon pulses
-- [ ] Motion resumes on leave
-
-### Clicking (Click each item)
-- [ ] Rotation animation smooth
-- [ ] Takes 600ms
-- [ ] Scale increases
-- [ ] Glow enhances
-- [ ] Navigation happens
-- [ ] Motion resumes
-
-### Navigation (Check each target)
-- [ ] Projects → scrolls to #projects
-- [ ] Skills → scrolls to #skills
-- [ ] Education → scrolls to #education
-- [ ] CV → scrolls to #cv
-- [ ] Connect → opens LinkedIn
-
----
-
-## Common Modifications
-
-### Change Float Speed
-**Location**: Line 48
+### Magnetic Button
 ```javascript
-const floatSpeed = 0.0002; // Decrease for slower
+<MagneticButton onClick={handleClick}>Click Me</MagneticButton>
 ```
 
-### Change Click Duration
-**Location**: Line 459
+### Floating Card
 ```javascript
-const rotationDuration = 0.6; // In seconds
+<FloatingCard><div className="p-6">Content</div></FloatingCard>
 ```
 
-### Change Screen Margin
-**Location**: Line 98
+### Interactive Background
 ```javascript
-const margin = 150; // Pixels from edge
+<InteractiveBackground enableParticles particleCount={30} />
 ```
 
-### Add New Navigation Item
-**Location**: Line 754 (navItems array)
+### Animated Text
 ```javascript
-{
-  label: "NewItem",
-  icon: IconComponent,
-  color: "color-name",
-  position: { x: 0, y: 0, z: 0 },
-  animationSpeed: 0.00005,
-  amplitude: { x: 15, y: 12 },
-  frequency: { x: 0.9, y: 1.0 },
-  href: "#new-section",
-  glow: "color-name",
-}
+<AnimatedGradientText animation="wave">Title</AnimatedGradientText>
 ```
 
-### Change Navigation Target
-**Location**: Line 763, 774, 785, 796, 807
+### Edge Shift
 ```javascript
-href: "#new-target", // Or full URL for external
+<EdgeShiftUI><YourComponent /></EdgeShiftUI>
 ```
 
 ---
 
-## Performance Notes
+## Props Quick Reference
 
-- **Frame Rate**: 60fps maintained
-- **CPU Impact**: Minimal (uses RAF efficiently)
-- **Memory**: No leaks (cleanup in useEffect)
-- **GPU**: Uses transform for acceleration
+### MagneticButton
+```javascript
+<MagneticButton
+  magneticRadius={200}           // 0-500px, default 150
+  springConfig={{                // Spring physics
+    stiffness: 300,             // 100-500 (higher = snappier)
+    damping: 20                 // 10-40 (higher = less bouncy)
+  }}
+  onClick={() => {}}             // Click handler
+  className="..."                // Tailwind classes
+/>
+```
+
+### FloatingCard
+```javascript
+<FloatingCard
+  intensity={1}                  // 0-2 (how much it follows cursor)
+  followCursor={true}            // Enable cursor tracking
+  className="..."                // Tailwind classes
+>
+  {children}
+</FloatingCard>
+```
+
+### InteractiveBackground
+```javascript
+<InteractiveBackground
+  enableParticles={true}         // Show floating particles
+  particleCount={30}             // 5-50 particles
+  intensity={0.5}                // 0-1 parallax strength
+  variant="gradient"             // 'gradient' | 'mesh' | 'vortex'
+/>
+```
+
+### AnimatedGradientText
+```javascript
+<AnimatedGradientText
+  as="h1"                        // h1-h6, p, span
+  animation="wave"               // 'wave' | 'shimmer' | 'pulse' | 'breathe'
+  duration={2}                   // Seconds
+  gradient="from-cyan-400 to-blue-600"  // Tailwind gradient
+  className="text-4xl font-bold"
+>
+  {children}
+</AnimatedGradientText>
+```
+
+### EdgeShiftUI
+```javascript
+<EdgeShiftUI
+  strength={30}                  // 0-100px shift distance
+  edgeThreshold={100}            // 50-300px from edge to activate
+>
+  {children}
+</EdgeShiftUI>
+```
+
+### AdvancedPortfolioHero
+```javascript
+<AdvancedPortfolioHero />        // Drop-in hero component (no props needed)
+```
 
 ---
 
-## Troubleshooting
+## Hooks Quick Reference
+
+### useCursorPosition
+```javascript
+const { cursorX, cursorY, isMoving } = useCursorPosition();
+
+// cursorX, cursorY are MotionValues (use with useTransform)
+const offsetX = useTransform(cursorX, (x) => x * 0.1);
+```
+
+### useCursorDistance
+```javascript
+const ref = useRef(null);
+const { distanceX, distanceY, distance } = useCursorDistance(ref, cursorX, cursorY);
+
+// All are MotionValues
+// distance = √(distanceX² + distanceY²)
+```
+
+### useParallax
+```javascript
+const { parallaxX, parallaxY } = useParallax(cursorX, cursorY, intensity);
+
+// Single layer parallax
+<motion.div style={{ x: parallaxX, y: parallaxY }} />
+```
+
+### useMultiLayerParallax
+```javascript
+const layers = useMultiLayerParallax(cursorX, cursorY, [0.2, 0.4, 0.6, 0.8]);
+
+// Each layer has {x, y} motion values with different intensities
+{layers.map((layer, i) => <motion.div key={i} style={layer} />)}
+```
+
+### usePerformanceMonitor
+```javascript
+const { isLowEndDevice, perfMetrics, quality } = usePerformanceMonitor();
+
+// isLowEndDevice: boolean
+// perfMetrics: { fps, gpu, memory, connection }
+// quality: { enableParallax, enableMagneticButtons, enableFloatingCards, ... }
+```
+
+---
+
+## Spring Physics Presets
+
+```javascript
+// Responsive (default)
+{ stiffness: 300, damping: 20 }
+
+// Snappy & Fast
+{ stiffness: 500, damping: 10 }
+
+// Bouncy & Fun
+{ stiffness: 100, damping: 30 }
+
+// Smooth & Deliberate
+{ stiffness: 150, damping: 40 }
+
+// Loose & Elastic
+{ stiffness: 50, damping: 20 }
+```
+
+---
+
+## Gradient Presets
+
+```javascript
+// Cyan to Purple
+gradient="from-cyan-400 via-blue-500 to-purple-600"
+
+// Purple to Pink
+gradient="from-purple-400 via-pink-400 to-red-400"
+
+// Green to Teal
+gradient="from-green-400 via-teal-400 to-cyan-400"
+
+// Orange to Red
+gradient="from-orange-400 via-red-400 to-pink-600"
+
+// Blue to Indigo
+gradient="from-blue-400 via-indigo-500 to-purple-600"
+```
+
+---
+
+## Common Patterns
+
+### Hero Section
+```javascript
+<div className="relative w-full min-h-screen">
+  <InteractiveBackground enableParticles />
+  <div className="relative z-10">
+    <AnimatedGradientText as="h1">Title</AnimatedGradientText>
+    <MagneticButton>CTA</MagneticButton>
+  </div>
+</div>
+```
+
+### Feature Grid
+```javascript
+<div className="grid grid-cols-3 gap-6">
+  {features.map((f, i) => (
+    <FloatingCard key={i} intensity={0.8}>
+      <h3>{f.title}</h3>
+      <p>{f.desc}</p>
+    </FloatingCard>
+  ))}
+</div>
+```
+
+### Button Group
+```javascript
+<div className="flex gap-4">
+  <MagneticButton className="bg-cyan-500">Primary</MagneticButton>
+  <MagneticButton className="border-2 border-purple-500">Secondary</MagneticButton>
+</div>
+```
+
+### Responsive Adaptation
+```javascript
+const { quality } = usePerformanceMonitor();
+
+<InteractiveBackground 
+  enableParticles={quality.enableParticles}
+  particleCount={quality.enableParticles ? 30 : 5}
+/>
+```
+
+---
+
+## Performance Tips
+
+### ✅ DO
+- Use `usePerformanceMonitor` on low-end devices
+- Reduce particles on mobile: `particleCount={10}`
+- Use `will-change: transform` on animated elements
+- Profile with DevTools Performance tab
+- Test on real devices, not just desktop
+
+### ❌ DON'T
+- Update state in animation loops (use motion values instead)
+- Add event listeners without cleanup
+- Use `left`/`top` instead of `transform`
+- Set `willChange` on too many elements
+- Animate `width`/`height`/`box-shadow`
+
+---
+
+## Debugging
+
+### Check FPS
+```javascript
+// DevTools → Performance → Record → Look at FPS graph
+// Should stay at 55-60fps
+```
+
+### Monitor Motion Values
+```javascript
+useEffect(() => {
+  const unsub = cursorX.onChange((x) => console.log('cursorX:', x));
+  return unsub;
+}, [cursorX]);
+```
+
+### Check Device Performance
+```javascript
+// In browser console
+const { quality } = usePerformanceMonitor();
+console.log(quality);
+```
+
+### Enable Dev Mode Indicator
+The code includes a performance indicator in development mode showing:
+- 🟢 High Performance Mode
+- 🔴 Low-End Device Mode
+
+---
+
+## Mobile Handling
+
+Mobile devices automatically:
+- Disable cursor tracking (use touch instead)
+- Reduce particle count
+- Disable parallax effects
+- Adapt spring physics
+
+Users can also enable `prefers-reduced-motion` to disable all animations.
+
+---
+
+## Color Schemes
+
+### Neon
+```javascript
+from-cyan-400 via-blue-500 to-purple-600
+```
+
+### Warm
+```javascript
+from-orange-400 via-red-400 to-pink-600
+```
+
+### Cool
+```javascript
+from-teal-400 via-cyan-400 to-blue-600
+```
+
+### Vibrant
+```javascript
+from-yellow-400 via-orange-400 to-red-600
+```
+
+### Pastel
+```javascript
+from-pink-300 via-purple-300 to-blue-300
+```
+
+---
+
+## Common Issues & Solutions
 
 | Issue | Solution |
 |-------|----------|
-| Item stuck | Check `floatTargetRef` initialization |
-| Goes off-screen | Verify margin = 150, check window size |
-| Motion doesn't resume | Check `setSpeedDamping(1)` in navigation |
-| Click doesn't work | Verify `pointerEvents: "auto"` |
-| Animation skips | Check `cancelAnimationFrame` cleanup |
-| No glow on hover | Verify color configuration in colorMap |
+| Laggy animations | Reduce particle count, disable parallax |
+| Buttons not magnetic | Increase `magneticRadius`, check ref |
+| Cursor not tracking | Check component is in viewport, check z-index |
+| Memory leak warning | Components cleanup properly, check DevTools |
+| Mobile is slow | Use `usePerformanceMonitor` quality levels |
+| Jittery movement | Use spring animation instead of tween |
 
 ---
 
-## Files to Know
+## Bundle Size
 
-| File | Purpose |
-|------|---------|
-| `src/SplitNavigation.js` | Main component (834 lines) |
-| `NAVIGATION_BEHAVIOR_SPEC.md` | Detailed behavior spec |
-| `TESTING_GUIDE.md` | Complete test cases |
-| `IMPLEMENTATION_SUMMARY.md` | Deep technical details |
-| `IMPLEMENTATION_CHECKLIST.md` | Requirement verification |
+- Framer Motion: ~40KB (gzipped)
+- Tailwind CSS: ~15KB (gzipped)
+- Your components: ~10KB (gzipped)
+- **Total: ~65KB**
 
 ---
 
-## Quick Customization Template
+## Next Steps
 
-To customize an item, modify the navItems array:
+1. Copy components to your `src/components` folder
+2. Import hooks from `src/hooks`
+3. Update your App.js to use components
+4. Test performance with DevTools
+5. Customize colors and physics to your liking
+6. Deploy and monitor real-world performance
 
-```javascript
-{
-  label: "CustomName",           // Display text
-  icon: IconComponent,            // From lucide-react
-  color: "cyan",                  // Color scheme
-  position: { x: 100, y: 50, z: 0 }, // Initial position
-  animationSpeed: 0.00005,        // Float speed
-  amplitude: { x: 15, y: 12 },    // Wave motion
-  frequency: { x: 0.9, y: 1.0 },  // Wave oscillation
-  href: "#target",                // Navigation target
-  glow: "cyan",                   // Glow color
-},
-```
-
----
-
-## Success Indicators
-
-✅ All items float continuously
-✅ No item ever freezes permanently
-✅ Click animations are smooth (600ms)
-✅ Navigation happens after rotation
-✅ Motion resumes automatically
-✅ All items stay in screen bounds
-✅ 3D effects visible throughout
-✅ 60fps maintained
-✅ No console errors
-✅ All interactions responsive
-
----
-
-## Version Info
-
-- **Component**: FloatingNavItem + SplitNavigation
-- **Framework**: React + Framer Motion
-- **Icons**: Lucide React
-- **Total Lines**: ~834 (SplitNavigation.js)
-- **Status**: Production Ready ✅
+For detailed explanations, see:
+- `ANIMATION_GUIDE.md` - Technical deep-dive
+- `IMPLEMENTATION_GUIDE.md` - Step-by-step integration

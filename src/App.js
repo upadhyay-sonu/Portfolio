@@ -11,7 +11,6 @@ import {
 
 // Navigation Components
 import FloatingNavBox from './FloatingNavBox';
-import SplitNavigation from './SplitNavigation';
 
 // --- Data Definitions ---
 
@@ -296,10 +295,7 @@ const App = () => {
        {/* 🌠 TWINKLING STAR BACKGROUND 🌠 */}
        <StarsBackground numStars={250} />
 
-      {/* Split 3D Floating Navigation Items */}
-      <SplitNavigation />
-
-      {/* MAIN CONTENT WRAPPER */}
+       {/* MAIN CONTENT WRAPPER */}
        <div 
          className="relative w-full z-0"
          style={{
