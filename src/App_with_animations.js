@@ -5,6 +5,7 @@ import { FloatingCard } from './components/FloatingCard';
 import { InteractiveBackground } from './components/InteractiveBackground';
 import { AnimatedGradientText } from './components/AnimatedGradientText';
 import { EdgeShiftUI } from './components/EdgeShiftUI';
+import { InteractiveForestBackground } from './components/InteractiveForestBackground';
 import { useCursorPosition } from './hooks/useCursorPosition';
 import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
 import { motion } from 'framer-motion';
@@ -26,7 +27,9 @@ function App() {
   const { isLowEndDevice, perfMetrics } = usePerformanceMonitor();
 
   return (
-    <div className="w-full bg-slate-950 text-gray-100 overflow-x-hidden">
+    <div className="w-full bg-slate-950 text-gray-100 overflow-x-hidden relative">
+      {/* Interactive Forest Background */}
+      <InteractiveForestBackground />
       {/* HERO SECTION */}
       <AdvancedPortfolioHero />
 
