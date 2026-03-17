@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Code2 } from 'lucide-react';
 
 export default function About() {
   return (
@@ -30,7 +30,7 @@ export default function About() {
           >
             <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 backdrop-blur-md p-8 flex items-center justify-center">
               <div className="text-center">
-                <div className="text-7xl mb-4">👨‍💻</div>
+                <Code2 className="w-12 h-12 text-cyan-400 mx-auto mb-4 transition-all duration-200" />
                 <p className="text-gray-400 text-sm">Full Stack Developer & AI/ML Enthusiast</p>
               </div>
             </div>
@@ -59,9 +59,9 @@ export default function About() {
                 <motion.div
                   key={i}
                   whileHover={{ x: 10 }}
-                  className="flex items-center gap-3 text-gray-300"
+                  className="flex items-center gap-2 text-gray-300"
                 >
-                  <CheckCircle className="text-cyan-400 flex-shrink-0" size={20} />
+                  <CheckCircle className="text-cyan-400 w-4 h-4 flex-shrink-0 transition-all duration-200" />
                   <span>{item}</span>
                 </motion.div>
               ))}

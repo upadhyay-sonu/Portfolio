@@ -41,10 +41,10 @@ export default function Navigation() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 hover:bg-white/10 rounded-lg transition"
+          className="md:hidden p-2 hover:bg-white/10 rounded-lg transition text-gray-300 hover:text-cyan-400"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 

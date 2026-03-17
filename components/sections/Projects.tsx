@@ -3,26 +3,26 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { projects } from '@/lib/data';
-import { Github, Globe } from 'lucide-react';
+import { Github, Globe, Briefcase, TrendingUp, Terminal, Code, Award, Rocket, ShoppingCart, CheckSquare, BarChart, Brain, Factory } from 'lucide-react';
 
 export default function Projects() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
   const getIcon = (iconName: string) => {
-    const icons: Record<string, string> = {
-      briefcase: '💼',
-      trendingup: '📈',
-      terminal: '🖥️',
-      code: '💻',
-      award: '🏆',
-      rocket: '🚀',
-      shoppingcart: '🛒',
-      checksquare: '✓',
-      barchart: '📊',
-      brain: '🧠',
-      factory: '🏭',
+    const iconMap: Record<string, React.ReactNode> = {
+      briefcase: <Briefcase />,
+      trendingup: <TrendingUp />,
+      terminal: <Terminal />,
+      code: <Code />,
+      award: <Award />,
+      rocket: <Rocket />,
+      shoppingcart: <ShoppingCart />,
+      checksquare: <CheckSquare />,
+      barchart: <BarChart />,
+      brain: <Brain />,
+      factory: <Factory />,
     };
-    return icons[iconName] || '💻';
+    return iconMap[iconName] || <Code />;
   };
 
   return (
@@ -58,7 +58,7 @@ export default function Projects() {
             >
               <div className="relative p-6 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 backdrop-blur-md hover:border-cyan-500/50 transition-all h-full flex flex-col justify-between">
                 {/* Icon */}
-                <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform">
+                <div className="w-5 h-5 mb-4 text-cyan-400 transition-all duration-200 group-hover:scale-110">
                   {getIcon(project.icon)}
                 </div>
 
@@ -86,9 +86,9 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
                       whileHover={{ scale: 1.1 }}
-                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
                     >
-                      <Globe size={14} /> Live
+                      <Globe className="w-3.5 h-3.5" /> Live
                     </motion.a>
                   )}
                   <motion.a
@@ -97,9 +97,9 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
                     whileHover={{ scale: 1.1 }}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-cyan-500/50 text-cyan-400 text-xs font-bold hover:bg-cyan-500/10 transition-all"
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-cyan-500/50 text-cyan-400 text-xs font-bold hover:bg-cyan-500/10 transition-all"
                   >
-                    <Github size={14} /> Code
+                    <Github className="w-3.5 h-3.5" /> Code
                   </motion.a>
                 </div>
 

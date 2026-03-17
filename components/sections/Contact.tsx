@@ -37,7 +37,7 @@ export default function Contact() {
             whileHover={{ scale: 1.05, y: -5 }}
             className="p-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-md hover:border-cyan-500/50 transition-all flex items-center gap-4"
           >
-            <Linkedin className="text-cyan-400" size={32} />
+            <Linkedin className="text-cyan-400 w-5 h-5 transition-all duration-200 group-hover:scale-105" />
             <div>
               <h3 className="text-xl font-bold text-white">LinkedIn</h3>
               <p className="text-gray-400">Connect with me on LinkedIn</p>
@@ -55,7 +55,7 @@ export default function Contact() {
             whileHover={{ scale: 1.05, y: -5 }}
             className="p-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-purple-500/10 to-cyan-500/10 backdrop-blur-md hover:border-cyan-500/50 transition-all flex items-center gap-4"
           >
-            <Github className="text-cyan-400" size={32} />
+            <Github className="text-cyan-400 w-5 h-5 transition-all duration-200 group-hover:scale-105" />
             <div>
               <h3 className="text-xl font-bold text-white">GitHub</h3>
               <p className="text-gray-400">Check out my repositories</p>
@@ -71,7 +71,7 @@ export default function Contact() {
             whileHover={{ scale: 1.05, y: -5 }}
             className="p-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 backdrop-blur-md hover:border-cyan-500/50 transition-all flex items-center gap-4"
           >
-            <Mail className="text-cyan-400" size={32} />
+            <Mail className="text-cyan-400 w-5 h-5 transition-all duration-200 group-hover:scale-105" />
             <div>
               <h3 className="text-xl font-bold text-white">Email</h3>
               <p className="text-gray-400">upadhyayasonu41@gmail.com</p>
@@ -89,7 +89,7 @@ export default function Contact() {
             whileHover={{ scale: 1.05, y: -5 }}
             className="p-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-md hover:border-cyan-500/50 transition-all flex items-center gap-4"
           >
-            <Download className="text-cyan-400" size={32} />
+            <Download className="text-cyan-400 w-5 h-5 transition-all duration-200 group-hover:scale-105" />
             <div>
               <h3 className="text-xl font-bold text-white">Download CV</h3>
               <p className="text-gray-400">View my resume</p>

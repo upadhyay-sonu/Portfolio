@@ -23,8 +23,8 @@ export default function Experience() {
 
         {/* Education */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-            <GraduationCap className="text-cyan-400" size={28} />
+          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+            <GraduationCap className="text-cyan-400 w-5 h-5 transition-all duration-200" />
             Degrees
           </h3>
           <div className="grid md:grid-cols-2 gap-6">
@@ -47,8 +47,8 @@ export default function Experience() {
 
         {/* Certifications */}
         <div>
-          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-            <CheckCircle className="text-cyan-400" size={28} />
+          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
+            <CheckCircle className="text-cyan-400 w-5 h-5 transition-all duration-200" />
             Professional Certifications
           </h3>
           <div className="grid md:grid-cols-3 gap-4">
@@ -61,8 +61,8 @@ export default function Experience() {
                 whileHover={{ scale: 1.05 }}
                 className="p-4 rounded-lg border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 backdrop-blur-md hover:border-cyan-500/50 transition-all text-center"
               >
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <CheckCircle size={16} className="text-green-400" />
+                <div className="flex items-center justify-center gap-1.5 mb-2">
+                  <CheckCircle className="w-4 h-4 text-green-400 transition-all duration-200" />
                   <span className="font-medium text-white text-sm">{cert}</span>
                 </div>
               </motion.div>
