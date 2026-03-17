@@ -36,10 +36,17 @@ export const useParallax = (cursorX, cursorY, intensity = 20, elementRef = null)
  * Better for creating depth hierarchy
  */
 export const useMultiLayerParallax = (cursorX, cursorY, layers = [1, 2, 3, 4]) => {
-  const paralaxLayers = layers.map(() => ({
-    x: useMotionValue(0),
-    y: useMotionValue(0),
-  }));
+  const parallaxLayersRef = useRef([]);
+
+  // Initialize layers with useMotionValue at top level, only once
+  if (parallaxLayersRef.current.length === 0) {
+    parallaxLayersRef.current = Array.from({ length: layers.length }, () => ({
+      x: useMotionValue(0),
+      y: useMotionValue(0),
+    }));
+  }
+
+  const paralaxLayers = parallaxLayersRef.current;
 
   useEffect(() => {
     const unsubscribeX = cursorX.onChange((x) => {
