@@ -1,75 +1,22 @@
-import { useEffect, useRef } from 'react';
-import { useMotionValue, useTransform } from 'framer-motion';
+import { useMotionValue } from "framer-motion";
+import { useEffect } from "react";
 
-/**
- * Parallax hook for cursor-based depth effect
- * Creates multi-layer parallax with configurable intensity
- * 
- * Performance: Uses transform3d and will-change for GPU acceleration
- */
-export const useParallax = (cursorX, cursorY, intensity = 20, elementRef = null) => {
-  const parallaxX = useMotionValue(0);
-  const parallaxY = useMotionValue(0);
+export function useParallax() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
   useEffect(() => {
-    const unsubscribeX = cursorX.onChange((x) => {
-      const offsetX = (x / window.innerWidth - 0.5) * intensity;
-      parallaxX.set(offsetX);
-    });
+    const handleMouseMove = (e) => {
+      x.set(e.clientX / window.innerWidth - 0.5);
+      y.set(e.clientY / window.innerHeight - 0.5);
+    };
 
-    const unsubscribeY = cursorY.onChange((y) => {
-      const offsetY = (y / window.innerHeight - 0.5) * intensity;
-      parallaxY.set(offsetY);
-    });
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      unsubscribeX();
-      unsubscribeY();
+      window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [cursorX, cursorY, parallaxX, parallaxY, intensity]);
+  }, [x, y]);
 
-  return { parallaxX, parallaxY };
-};
-
-/**
- * Multi-layer parallax effect for complex scenes
- * Better for creating depth hierarchy
- */
-export const useMultiLayerParallax = (cursorX, cursorY, layers = [1, 2, 3, 4]) => {
-  const parallaxLayersRef = useRef([]);
-
-  // Initialize layers with useMotionValue at top level, only once
-  if (parallaxLayersRef.current.length === 0) {
-    parallaxLayersRef.current = Array.from({ length: layers.length }, () => ({
-      x: useMotionValue(0),
-      y: useMotionValue(0),
-    }));
-  }
-
-  const paralaxLayers = parallaxLayersRef.current;
-
-  useEffect(() => {
-    const unsubscribeX = cursorX.onChange((x) => {
-      paralaxLayers.forEach((layer, idx) => {
-        const intensity = (idx + 1) * 15;
-        const offset = (x / window.innerWidth - 0.5) * intensity;
-        layer.x.set(offset);
-      });
-    });
-
-    const unsubscribeY = cursorY.onChange((y) => {
-      paralaxLayers.forEach((layer, idx) => {
-        const intensity = (idx + 1) * 15;
-        const offset = (y / window.innerHeight - 0.5) * intensity;
-        layer.y.set(offset);
-      });
-    });
-
-    return () => {
-      unsubscribeX();
-      unsubscribeY();
-    };
-  }, [cursorX, cursorY, paralaxLayers]);
-
-  return paralaxLayers;
-};
+  return { x, y };
+}

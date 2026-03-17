@@ -380,7 +380,7 @@ const App = () => {
                viewport={{ once: true }}
                transition={{ duration: 0.5 }}
              >
-               // SKILL MATRIX & CREDENTIALS
+               {/* SKILL MATRIX & CREDENTIALS */}
              </motion.h2>
 
              <div className="grid lg:grid-cols-12 gap-10">
