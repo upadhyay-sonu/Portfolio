@@ -174,7 +174,15 @@ export const projects = [
     github: "https://github.com/upadhyay-sonu/shopfloor-lite",
     icon: "factory"
   },
-];
+  {
+    title: "NISKAUPS",
+    desc: "A full-stack e-commerce web application with modern UI and scalable backend architecture. It supports product listings, news integration, and dynamic API-driven data handling with smooth user experience.",
+    tech: "React, Node.js, MongoDB, Express, Redux, Tailwind",
+    live: "https://niskaups.pages.dev/",
+    github: "https://github.com/upadhyay-sonu/NISKAUPS",
+    icon: "shoppingcart"
+  },
+  ];
 
 export const education = [
   { degree: "MCA", school: "Lovely Professional University", year: "2023" },
