@@ -185,8 +185,8 @@ export const projects = [
   ];
 
 export const education = [
-  { degree: "MCA", school: "Lovely Professional University", year: "2023" },
-  { degree: "BCA", school: "Lovely Professional University", year: "2021" },
+  { degree: "MCA", school: "Lovely Professional University", year: "2026" },
+  { degree: "BCA", school: "Lovely Professional University", year: "2024" },
 ];
 
 export const certifications = [
