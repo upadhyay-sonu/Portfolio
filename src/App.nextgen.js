@@ -14,6 +14,8 @@ import {
 import FloatingNavBox from './FloatingNavBox';
 
 // --- Data Definitions ---
+// --- Data Definitions ---
+// --- Data Definitions ---
 
 const hardSkills = [
   { name: "Python / Data Science", percent: 95, color: "cyan" },
