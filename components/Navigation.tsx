@@ -7,7 +7,7 @@ import { Menu, X } from 'lucide-react';
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Contact'];
+  const navItems = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
 
   return (
     <motion.nav
@@ -25,7 +25,7 @@ export default function Navigation() {
         </motion.div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
             <motion.a
               key={item}
@@ -36,6 +36,12 @@ export default function Navigation() {
               {item}
             </motion.a>
           ))}
+          <button
+            onClick={() => alert("Game Mode 🚀")}
+            className="ml-4 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/20"
+          >
+            Play Game
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -65,6 +71,15 @@ export default function Navigation() {
                 {item}
               </a>
             ))}
+            <button
+              onClick={() => {
+                alert("Game Mode Coming Soon 🚀");
+                setIsOpen(false);
+              }}
+              className="mt-4 w-full py-2 px-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/40 font-medium text-center"
+            >
+              Play Game
+            </button>
           </div>
         </motion.div>
       )}
