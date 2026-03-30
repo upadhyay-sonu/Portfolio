@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  console.log("NAVBAR ACTIVE");
 
   const navItems = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
 
