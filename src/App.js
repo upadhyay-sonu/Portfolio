@@ -138,6 +138,7 @@ const SkillBar3D = ({ skill, delay }) => {
       transition={{ duration: 0.6, delay: delay }}
       
       // Stronger 3D Hover Effect
+      // Stronger 3D Hover Effect
       whileHover={{ 
         scale: 1.05,
         rotateY: 4,

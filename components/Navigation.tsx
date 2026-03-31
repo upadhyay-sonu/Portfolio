@@ -1,12 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showGameMenu, setShowGameMenu] = useState(false);
   console.log("NAVBAR ACTIVE");
+
+  useEffect(() => {
+    document.body.style.overflow = showGameMenu ? "hidden" : "auto";
+  }, [showGameMenu]);
 
   const navItems = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
 
@@ -38,8 +43,11 @@ export default function Navigation() {
             </motion.a>
           ))}
           <button
-            onClick={() => alert("Game Mode 🚀")}
-            className="ml-4 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/20"
+            onClick={() => {
+              console.log("OPENING GAME MENU");
+              setShowGameMenu(true);
+            }}
+            className="ml-4 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-105 transition"
           >
             Play Game
           </button>
@@ -74,7 +82,7 @@ export default function Navigation() {
             ))}
             <button
               onClick={() => {
-                alert("Game Mode Coming Soon 🚀");
+                setShowGameMenu(true);
                 setIsOpen(false);
               }}
               className="mt-4 w-full py-2 px-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/40 font-medium text-center"
@@ -83,6 +91,29 @@ export default function Navigation() {
             </button>
           </div>
         </motion.div>
+      )}
+
+      {showGameMenu && (
+        <div className="fixed inset-0 z-[999] bg-black flex flex-col items-center justify-center text-white">
+          <h1 className="text-4xl mb-10">Choose Your Game</h1>
+
+          <div className="flex gap-10">
+            <button className="bg-green-500 px-8 py-4 rounded-xl">
+              Ludo 🎲
+            </button>
+
+            <button className="bg-purple-500 px-8 py-4 rounded-xl">
+              Sudoku 🧩
+            </button>
+          </div>
+
+          <button
+            onClick={() => setShowGameMenu(false)}
+            className="absolute top-6 right-6 text-3xl"
+          >
+            ✕
+          </button>
+        </div>
       )}
     </motion.nav>
   );
