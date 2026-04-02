@@ -3,44 +3,16 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { LudoDashboard } from './LudoGame/LudoDashboard';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showGameMenu, setShowGameMenu] = useState(false);
-  const [showLudoDashboard, setShowLudoDashboard] = useState(false);
-  const [gameMode, setGameMode] = useState<string | null>(null);
-  const [gameStarted, setGameStarted] = useState(false);
-  const [playerPos, setPlayerPos] = useState(0);
-  const [botPos, setBotPos] = useState(0);
+  const [showLudo, setShowLudo] = useState(false);
   console.log("NAVBAR ACTIVE");
 
-  function rollDice() {
-    return Math.floor(Math.random() * 6) + 1;
-  }
-
-  function handleBotMove() {
-    setBotPos(prev => {
-      const dice = rollDice();
-      let newPos = Math.min(prev + dice, 24);
-      if (gameMode === "snake" && newPos === 18) return 5;
-      return newPos;
-    });
-  }
-
-  function handlePlayerMove() {
-    const dice = rollDice();
-    let newPos = Math.min(playerPos + dice, 24);
-    if (gameMode === "snake" && newPos === 18) newPos = 5;
-    setPlayerPos(newPos);
-
-    setTimeout(() => {
-      handleBotMove();
-    }, 1000);
-  }
-
   useEffect(() => {
-    document.body.style.overflow = (showGameMenu || showLudoDashboard || gameStarted) ? "hidden" : "auto";
-  }, [showGameMenu, showLudoDashboard, gameStarted]);
+    document.body.style.overflow = showLudo ? "hidden" : "auto";
+  }, [showLudo]);
 
   const navItems = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
 
@@ -72,11 +44,8 @@ export default function Navigation() {
             </motion.a>
           ))}
           <button
-            onClick={() => {
-              console.log("OPENING GAME MENU");
-              setShowGameMenu(true);
-            }}
-            className="ml-4 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-105 transition"
+            onClick={() => setShowLudo(true)}
+            className="ml-4 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-105 transition shadow-[0_0_15px_rgba(6,182,212,0.5)]"
           >
             Play Game
           </button>
@@ -111,7 +80,7 @@ export default function Navigation() {
             ))}
             <button
               onClick={() => {
-                setShowGameMenu(true);
+                setShowLudo(true);
                 setIsOpen(false);
               }}
               className="mt-4 w-full py-2 px-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/40 font-medium text-center"
@@ -122,118 +91,7 @@ export default function Navigation() {
         </motion.div>
       )}
 
-      {showGameMenu && (
-        <div className="fixed inset-0 z-[999] bg-black flex flex-col items-center justify-center text-white">
-          <h1 className="text-4xl mb-10">Choose Your Game</h1>
-
-          <div className="flex gap-10">
-            <button 
-              onClick={() => {
-                console.log("LUDO CLICKED");
-                setShowGameMenu(false);
-                setShowLudoDashboard(true);
-              }}
-              className="bg-green-500 px-8 py-4 rounded-xl"
-            >
-              Ludo 🎲
-            </button>
-
-            <button className="bg-purple-500 px-8 py-4 rounded-xl">
-              Sudoku 🧩
-            </button>
-          </div>
-
-          <button
-            onClick={() => setShowGameMenu(false)}
-            className="absolute top-6 right-6 text-3xl"
-          >
-            ✕
-          </button>
-        </div>
-      )}
-
-      {showLudoDashboard && (
-        <div className="fixed inset-0 z-[999] bg-black flex flex-col items-center justify-center text-white">
-          <h1 className="text-4xl mb-10">Select Ludo Mode</h1>
-
-          <div className="flex gap-10">
-            <button
-              onClick={() => {
-                setGameMode("normal");
-                setShowLudoDashboard(false);
-                setGameStarted(true);
-              }}
-              className="bg-green-500 px-8 py-4 rounded-xl"
-            >
-              Normal Ludo 🎲
-            </button>
-
-            <button
-              onClick={() => {
-                setGameMode("snake");
-                setShowLudoDashboard(false);
-                setGameStarted(true);
-              }}
-              className="bg-red-500 px-8 py-4 rounded-xl"
-            >
-              Snake Ludo 🐍
-            </button>
-          </div>
-
-          <button
-            onClick={() => setShowLudoDashboard(false)}
-            className="absolute top-6 right-6 text-3xl"
-          >
-            ✕
-          </button>
-        </div>
-      )}
-
-      {gameStarted && (
-        <div className="fixed inset-0 z-[999] bg-black text-white flex flex-col items-center justify-center">
-          <h1 className="text-3xl mb-6">
-            {gameMode === "snake" ? "Snake Ludo 🐍" : "Normal Ludo 🎲"}
-          </h1>
-
-          {/* SIMPLE BOARD */}
-          <div className="grid grid-cols-5 gap-2 bg-gray-800 p-4 rounded-xl">
-            {[...Array(25)].map((_, i) => (
-              <div
-                key={i}
-                className="w-12 h-12 bg-gray-600 flex items-center justify-center rounded text-xl"
-              >
-                {playerPos === i && "🟢"}
-                {botPos === i && "🔴"}
-                {playerPos !== i && botPos !== i && i}
-              </div>
-            ))}
-          </div>
-
-          {/* PLAYER + BOT */}
-          <div className="mt-6 flex gap-6">
-            <button
-              onClick={() => handlePlayerMove()}
-              className="bg-green-500 px-6 py-2 rounded"
-            >
-              Roll Dice 🎲
-            </button>
-
-            <button className="bg-red-500 px-6 py-2 rounded cursor-default">
-              Bot Thinking 🤖
-            </button>
-          </div>
-
-          <button
-            onClick={() => {
-              setGameStarted(false);
-              setGameMode(null);
-            }}
-            className="mt-6 text-xl text-gray-400 hover:text-white"
-          >
-            Exit Game
-          </button>
-        </div>
-      )}
+      {showLudo && <LudoDashboard onClose={() => setShowLudo(false)} />}
     </motion.nav>
   );
 }
