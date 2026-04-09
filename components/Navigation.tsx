@@ -1,18 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { LudoDashboard } from './LudoGame/LudoDashboard';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showLudo, setShowLudo] = useState(false);
   console.log("NAVBAR ACTIVE");
-
-  useEffect(() => {
-    document.body.style.overflow = showLudo ? "hidden" : "auto";
-  }, [showLudo]);
 
   const navItems = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
 
@@ -43,12 +37,6 @@ export default function Navigation() {
               {item}
             </motion.a>
           ))}
-          <button
-            onClick={() => setShowLudo(true)}
-            className="ml-4 px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-105 transition shadow-[0_0_15px_rgba(6,182,212,0.5)]"
-          >
-            Play Game
-          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -78,20 +66,9 @@ export default function Navigation() {
                 {item}
               </a>
             ))}
-            <button
-              onClick={() => {
-                setShowLudo(true);
-                setIsOpen(false);
-              }}
-              className="mt-4 w-full py-2 px-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/40 font-medium text-center"
-            >
-              Play Game
-            </button>
           </div>
         </motion.div>
       )}
-
-      {showLudo && <LudoDashboard onClose={() => setShowLudo(false)} />}
     </motion.nav>
   );
 }
