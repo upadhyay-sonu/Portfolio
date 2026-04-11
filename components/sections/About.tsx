@@ -31,7 +31,7 @@ export default function About() {
             <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 rounded-2xl p-4 flex flex-col items-center justify-center h-auto border border-cyan-500/30 backdrop-blur-md hover:scale-[1.02] transition-all duration-500">
               <div className="w-full flex justify-center bg-black/20 p-2 rounded-xl">
                 <img
-                  src="/profile.jpg"
+                  src="/profile_4d.png"
                   alt="Profile"
                   className="w-full h-auto object-contain rounded-xl"
                 />

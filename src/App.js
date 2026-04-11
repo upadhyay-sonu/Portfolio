@@ -11,6 +11,7 @@ import {
 
 // Navigation Components
 import FloatingNavBox from './FloatingNavBox';
+import { FaPython, FaReact, FaServer, FaDatabase, FaCloud } from 'react-icons/fa';
 
 // --- Data Definitions ---
 // --- Data Definitions ---
@@ -18,12 +19,12 @@ import FloatingNavBox from './FloatingNavBox';
 // --- Data Definitions ---
 
 const hardSkills = [
-  { name: "Python / Data Science", percent: 95, color: "cyan" },
-  { name: "AI/ML (XGBoost, Pytorch)", percent: 90, color: "magenta" },
-  { name: "React / Frontend Dev", percent: 85, color: "blue" },
-  { name: "Web Frameworks (Django/Flask)", percent: 80, color: "pink" },
-  { name: "Databases (SQL/NoSQL)", percent: 75, color: "green" },
-  { name: "DevOps/Cloud (Git, Docker)", percent: 70, color: "yellow" },
+  { name: "Python / Data Science", percent: 95, color: "cyan", icon: FaPython },
+  { name: "AI/ML", percent: 90, color: "magenta", icon: Brain },
+  { name: "React / Frontend", percent: 85, color: "blue", icon: FaReact },
+  { name: "Web Frameworks", percent: 85, color: "pink", icon: FaServer },
+  { name: "Databases", percent: 85, color: "green", icon: FaDatabase },
+  { name: "DevOps/Cloud", percent: 80, color: "yellow", icon: FaCloud },
 ];
 
 const projects = [
@@ -116,7 +117,7 @@ const StarsBackground = ({ numStars = 150 }) => {
 
 // Skill Item component with 3D animation effect
 const SkillBar3D = ({ skill, delay }) => {
-  const { name, percent, color } = skill;
+  const { name, percent, color, icon: Icon } = skill;
   
   // Dynamic tailwind class mapping for colors and glow
   const colorMap = {
@@ -131,13 +132,12 @@ const SkillBar3D = ({ skill, delay }) => {
 
   return (
     <motion.div
-      className="mb-4 bg-gray-800/50 p-3 rounded-xl border border-gray-700/50 transition-all duration-200"
+      className="mb-4 bg-gray-800/50 p-3 rounded-xl border border-gray-700/50 transition-all duration-200 flex flex-col justify-center"
       initial={{ opacity: 0, x: -50 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.5 }}
       transition={{ duration: 0.6, delay: delay }}
       
-      // Stronger 3D Hover Effect
       // Stronger 3D Hover Effect
       whileHover={{ 
         scale: 1.05,
@@ -149,8 +149,11 @@ const SkillBar3D = ({ skill, delay }) => {
       }}
       style={{ transformStyle: 'preserve-3d' }}
     >
-      <div className="flex justify-between items-center mb-1">
-        <span className={`text-sm font-semibold ${c.text}`}>{name}</span>
+      <div className="flex justify-between items-center mb-2">
+        <div className="flex items-center gap-3">
+          {Icon && <Icon className={`w-[22px] h-[22px] ${c.text}`} />}
+          <span className={`text-[15px] font-semibold tracking-wide ${c.text}`}>{name}</span>
+        </div>
         <span className={`text-xs font-bold text-gray-300`}>{percent}%</span>
       </div>
       <div className="w-full bg-gray-900 rounded-full h-2.5">
