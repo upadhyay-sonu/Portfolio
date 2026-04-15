@@ -31,7 +31,10 @@ export default function Skills() {
               className="group relative p-6 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 backdrop-blur-md hover:border-cyan-500/50 transition-all"
             >
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-white">{skill.name}</h3>
+                <div className="flex items-center gap-3">
+                  <skill.icon className="text-2xl" style={{ color: skill.color }} />
+                  <h3 className="text-xl font-bold text-white">{skill.name}</h3>
+                </div>
                 <span className="text-2xl font-black text-transparent bg-clip-text" style={{
                   backgroundImage: `linear-gradient(135deg, ${skill.color}, #ffffff)`
                 }}>

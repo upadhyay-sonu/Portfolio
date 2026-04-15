@@ -3,14 +3,20 @@ import {
   Award, Briefcase, ChevronRight, Zap, Globe, Download, TrendingUp, Cpu,
   Rocket, ShoppingCart, CheckSquare, BarChart, Brain, Factory, Mail, FileText
 } from 'lucide-react';
+import {
+  SiPython, SiTensorflow, SiReact, SiDjango, SiDocker,
+  SiAngular, SiIonic, SiNodedotjs, SiVuedotjs, SiNextdotjs,
+  SiBootstrap, SiTailwindcss, SiRender, SiVercel, SiScikitlearn
+} from 'react-icons/si';
+import { FaDatabase, FaJava, FaGithub, FaBrain, FaPenNib } from 'react-icons/fa';
 
 export const hardSkills = [
-  { name: "Python / Data Science", percent: 95, color: "#00d9ff" },
-  { name: "AI/ML (XGBoost, Pytorch)", percent: 90, color: "#ff006e" },
-  { name: "React / Frontend Dev", percent: 85, color: "#4d5aff" },
-  { name: "Web Frameworks (Django/Flask)", percent: 80, color: "#ff4d94" },
-  { name: "Databases (SQL/NoSQL)", percent: 75, color: "#00d080" },
-  { name: "DevOps/Cloud (Git, Docker)", percent: 70, color: "#ffd60a" },
+  { name: "Python / Data Science", percent: 95, color: "#00d9ff", icon: SiPython },
+  { name: "AI/ML (XGBoost, Pytorch)", percent: 90, color: "#ff006e", icon: SiTensorflow },
+  { name: "React / Frontend Dev", percent: 85, color: "#4d5aff", icon: SiReact },
+  { name: "Web Frameworks (Django/Flask)", percent: 85, color: "#ff4d94", icon: SiDjango },
+  { name: "Databases (SQL/NoSQL)", percent: 85, color: "#00d080", icon: FaDatabase },
+  { name: "DevOps/Cloud (Git, Docker)", percent: 80, color: "#ffd60a", icon: SiDocker },
 ];
 
 export const projects = [
@@ -189,26 +195,27 @@ export const education = [
   { degree: "BCA", school: "Lovely Professional University", year: "2024" },
 ];
 
+
 export const certifications = [
-  "Python (GFG)",
-  "Java (GFG)",
-  "Django (BI)",
-  "UI/UX Design Fundamentals (Google)",
-  "React.js (Coursera)",
-  "Angular.js (Udemy)",
-  "ionic (Skillshare)",
-  "node.js (Google UX)",
-  "react native (Coursera)",
-  "Vue.js (LinkedIn)",
-  "Next.js (Coursera)",
-  "Bootstrap (Coursera)",
-  "Tailwind CSS (Coursera)",
-  "Render (Coursera)",
-  "vercel (Coursera)",
-  "GitHub (Coursera)",
-  "Scikit-learn (Coursera)",
-  "XGBoost (Coursera)",
-  "LightGBM (Coursera)",
+  { name: "Python (GFG)", icon: SiPython, color: "#3776AB" },
+  { name: "Java (GFG)", icon: FaJava, color: "#007396" },
+  { name: "Django (BI)", icon: SiDjango, color: "#092E20" },
+  { name: "UI/UX Design Fundamentals (Google)", icon: FaPenNib, color: "#F24E1E" },
+  { name: "React.js (Coursera)", icon: SiReact, color: "#61DAFB" },
+  { name: "Angular.js (Udemy)", icon: SiAngular, color: "#DD0031" },
+  { name: "ionic (Skillshare)", icon: SiIonic, color: "#3880FF" },
+  { name: "node.js (Google UX)", icon: SiNodedotjs, color: "#339933" },
+  { name: "react native (Coursera)", icon: SiReact, color: "#61DAFB" },
+  { name: "Vue.js (LinkedIn)", icon: SiVuedotjs, color: "#4FC08D" },
+  { name: "Next.js (Coursera)", icon: SiNextdotjs, color: "#ffffff" },
+  { name: "Bootstrap (Coursera)", icon: SiBootstrap, color: "#7952B3" },
+  { name: "Tailwind CSS (Coursera)", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "Render (Coursera)", icon: SiRender, color: "#46E3B7" },
+  { name: "vercel (Coursera)", icon: SiVercel, color: "#ffffff" },
+  { name: "GitHub (Coursera)", icon: FaGithub, color: "#ffffff" },
+  { name: "Scikit-learn (Coursera)", icon: SiScikitlearn, color: "#F7931E" },
+  { name: "XGBoost (Coursera)", icon: FaBrain, color: "#8A2BE2" },
+  { name: "LightGBM (Coursera)", icon: FaBrain, color: "#8A2BE2" },
 ];
 
 export const socialLinks = {
