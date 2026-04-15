@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { socialLinks } from '@/lib/data';
-import { Github, Linkedin, Mail, Download } from 'lucide-react';
-
+import { Linkedin, Mail, Download } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 export default function Contact() {
   return (
     <section id="contact" className="relative py-32 px-6">
@@ -55,7 +55,7 @@ export default function Contact() {
             whileHover={{ scale: 1.05, y: -5 }}
             className="p-8 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-purple-500/10 to-cyan-500/10 backdrop-blur-md hover:border-cyan-500/50 transition-all flex items-center gap-4"
           >
-            <Github className="text-cyan-400 w-5 h-5 transition-all duration-200 group-hover:scale-105" />
+            <FaGithub className="text-cyan-400 text-[26px] transition-all duration-300 drop-shadow-[0_0_5px_rgba(0,217,255,0.3)] group-hover:drop-shadow-[0_0_12px_rgba(0,217,255,0.9)] group-hover:scale-110" />
             <div>
               <h3 className="text-xl font-bold text-white">GitHub</h3>
               <p className="text-gray-400">Check out my repositories</p>

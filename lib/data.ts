@@ -220,7 +220,7 @@ export const certifications = [
 
 export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/sonukumar102/",
-  github: "https://github.com/sonuupahyaya",
+  github: "https://github.com/upadhyay-sonu",
   email: "upadhyayasonu41@gmail.com",
   cvDataScience: "https://drive.google.com/file/d/1kiMoKhL7t9U-j6wgYVJSn6-1MyqxJM3X/view?usp=sharing",
   cvSoftware: "https://drive.google.com/file/d/1GkJ-iJ_l6PLyvyWsSDn4N6t3fMWOdhMl/view?usp=sharing",
