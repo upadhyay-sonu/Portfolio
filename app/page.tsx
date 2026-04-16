@@ -7,6 +7,7 @@ import Experience from '@/components/sections/Experience';
 import Contact from '@/components/sections/Contact';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import ClientLandingTransition from '@/components/ClientLandingTransition';
 
 export const metadata: Metadata = {
   title: 'Sonu Kumar - Full Stack Developer & AI/ML Specialist',
@@ -16,14 +17,16 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
-      <Navigation />
-      <PremiumHero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
-      <Footer />
+      <ClientLandingTransition>
+        <Navigation />
+        <PremiumHero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Contact />
+        <Footer />
+      </ClientLandingTransition>
     </main>
   );
 }
