@@ -397,7 +397,7 @@ export default function Landing3D({ onEnter }: Landing3DProps) {
         .l3d-role { font-family: 'Rajdhani', sans-serif; font-size: clamp(13px, 2vw, 18px); letter-spacing: 4px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
         .l3d-divider { width: 0px; height: 1px; margin: 25px 0; background: linear-gradient(to right, transparent, #0fca9a, transparent); animation: expandDivider 1s 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes expandDivider { to { width: 120px; } }
-        .l3d-buttons { display: flex; gap: 20px; }
+        .l3d-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
         .l3d-cta { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; background: transparent; border: 1px solid rgba(15, 202, 154, 0.5); color: #0fca9a; padding: 12px 24px; cursor: none; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); transition: all 0.3s; }
         .l3d-cta:hover { background: rgba(15, 202, 154, 0.1); border-color: #0fca9a; color: white; box-shadow: 0 0 15px rgba(15, 202, 154, 0.4); }
         .l3d-stats { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 40px; pointer-events: none; }
@@ -445,6 +445,7 @@ export default function Landing3D({ onEnter }: Landing3DProps) {
           <div className="l3d-buttons l3d-anim-up l3d-delay-5">
             {/* EDIT: Link your sections */}
             <button className="l3d-cta" onClick={() => handleAction('projects')}>View Work</button>
+            <button className="l3d-cta" onClick={() => handleAction('about')}>Know More</button>
             <button className="l3d-cta" onClick={() => handleAction('contact')}>Contact</button>
           </div>
         </div>
