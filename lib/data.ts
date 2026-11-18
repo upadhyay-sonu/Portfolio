@@ -188,10 +188,71 @@ export const projects = [
     github: "https://github.com/upadhyay-sonu/NISKAUPS",
     icon: "shoppingcart"
   },
-  ];
+];
+
+export interface WorkExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  highlights: string[];
+  technologies: string[];
+}
+
+export const workExperience: WorkExperienceItem[] = [
+  {
+    company: "Quantiphi",
+    role: "Software Engineer",
+    period: "Jun 2026 – Present",
+    location: "Bengaluru, India – Hybrid",
+    highlights: [
+      "Developed DocIQ, an Intelligent Document Processing (IDP) platform for a farmer insurance client, automating end-to-end insurance document filing using Python, Flask, FastAPI, SQL, and GCP.",
+      "Designed a microservices architecture with RESTful APIs, building independent services for email ingestion, OCR, document filing, and filing orchestration.",
+      "Automated document ingestion, data extraction, validation, and business-rule processing, significantly reducing manual intervention and turnaround time.",
+      "Built a workflow orchestration service coordinating email, OCR, and filing services to process high volumes of insurance documents with minimal human effort.",
+      "Deployed and maintained scalable backend services on GCP, collaborating through Agile sprints, code reviews, and production support.",
+    ],
+    technologies: ["Python", "Flask", "FastAPI", "SQL", "GCP", "Microservices", "REST APIs"],
+  },
+  {
+    company: "Trajector",
+    role: "Software Engineer",
+    period: "Apr 2025 – Feb 2026",
+    location: "Gurugram, India – Hybrid",
+    highlights: [
+      "Architected event-driven AWS serverless microservices using Lambda, EventBridge, SQS, SNS, SST, and DLQs, achieving 99.9% reliability and fault tolerance.",
+      "Optimized MongoDB indexing strategies, reducing query latency by 60% for an application serving 100+ internal and external users.",
+      "Built responsive React.js and Tailwind CSS frontends for AWS-backed microservices, improving UI load times by 20%.",
+      "Secured APIs with AWS Cognito authentication and authorization, and integrated Sentry for error tracking, enabling 50% faster debugging.",
+    ],
+    technologies: ["AWS Lambda", "EventBridge", "SQS", "SNS", "SST", "MongoDB", "React.js", "Tailwind CSS", "AWS Cognito", "Sentry"],
+  },
+  {
+    company: "Areness",
+    role: "Software Engineer",
+    period: "Jul 2024 – Apr 2025",
+    location: "Gurugram, India – On-site",
+    highlights: [
+      "Developed an enterprise Case Management System (CMS) using React.js, Node.js, and MongoDB, improving data management efficiency by 35%.",
+      "Automated event notifications via Outlook and WhatsApp integrations, reducing missed appointments by 40%.",
+      "Built Python web scraping pipelines to extract and process external data, enhancing CMS analytics and business insights.",
+    ],
+    technologies: ["React.js", "Node.js", "MongoDB", "Python", "Outlook", "WhatsApp"],
+  },
+  {
+    company: "V-Patrol",
+    role: "Full Stack Developer",
+    period: "Feb 2023 – Jun 2024",
+    location: "Gurugram, India – On-site",
+    highlights: [
+      "Developed and deployed an Admin Dashboard and multiple product front ends using React.js and Node.js.",
+      "Collaborated with cross-functional teams to ship features on time, improving application performance by 20% through code optimization.",
+    ],
+    technologies: ["React.js", "Node.js", "JavaScript", "Full Stack"],
+  },
+];
 
 export const education = [
-  { degree: "MCA", school: "Lovely Professional University", year: "2026" },
   { degree: "BCA", school: "Lovely Professional University", year: "2024" },
 ];
 
